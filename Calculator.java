@@ -5,6 +5,8 @@ public class Calculator {
     double[] stack;
     int index;
 
+
+
     /**
      * _Part 1: Implement this constructor_
      *
@@ -45,9 +47,11 @@ public class Calculator {
         if(index <= 0){
             throw new IllegalStateException("List is Empty");
         }
+        double topVaule = stack[index-1];
+        index--;
 
         // TODO: implement this
-        return 0;
+        return topVaule;
     }
 
     /**
@@ -80,7 +84,52 @@ public class Calculator {
      */
     public double calculate(String s) {
         // TODO: implement this
-        return 0;
+        double a;
+        double b;
+        Scanner mathInput = new Scanner(s);
+
+
+        while(mathInput.hasNext()){
+            if(mathInput.hasNextDouble()){
+                push(mathInput.nextDouble());
+            }
+            else{
+                String operator = mathInput.next();
+
+                switch(operator){
+                    case "+":
+                        a = pop();
+                        b = pop();
+                        push(a+b);
+                        break;
+                    case "-":
+                        a = pop();
+                        b = pop();
+                        push(b-a);
+                        break;
+                    case "*":
+                        a = pop();
+                        b = pop();
+                        push(a*b);
+                        break;
+                    case "/":
+                        a = pop();
+                        b = pop();
+                        push(b/a);
+                        break;
+                    case "^":
+                        a = pop();
+                        b = pop();
+                        push(Math.pow(b,a));
+                        break;
+                    case "lg":
+                        a = pop();
+                        push(Math.log(a)/Math.log(2));
+                        break;
+                }
+            }
+        }
+        return pop();
     }
 
     public static void main(String[] args) {
