@@ -2,7 +2,10 @@ import java.util.Scanner;
 import java.util.Stack;
 
 public class Calculator {
+
+    //declaring an array of doubles
     double[] stack;
+    //creating an index variable to input doubles in the correct slot
     int index;
 
 
@@ -14,6 +17,7 @@ public class Calculator {
      * @param d - number of spaces in the stack
      */
     public Calculator(int d) {
+        //initializing a new array and setting index to 0 (beginning of the array)
         stack= new double[d];
         index=0;
 
@@ -28,10 +32,14 @@ public class Calculator {
      * throw an IllegalStateException if the stack has 10 or more values.
      */
     private void push(double d) {
+
+        //throws exception if the stack has 10 or more values
         if(index >= 10){
             throw new IllegalStateException("To many values");
         }
+        //will push the value onto the stack at the current index
         stack[index] = d;
+        //moves the index 1 to the right for the next push
         index++;
         // TODO: implement this
         return;
@@ -44,13 +52,18 @@ public class Calculator {
      * throw an IllegalStateException if the stack is currently empty.
      */
     private double pop() {
+        //throws exception if the stack is empty
         if(index <= 0){
             throw new IllegalStateException("List is Empty");
         }
+        //setting topValue to the index that we are popping off
         double topVaule = stack[index-1];
+        
+        //decrementing index by 1 since we popped something off
         index--;
 
         // TODO: implement this
+        //returning topValue (value that we are popping off)
         return topVaule;
     }
 
@@ -84,15 +97,23 @@ public class Calculator {
      */
     public double calculate(String s) {
         // TODO: implement this
+        //setting variables to hold values we pop off
+        //due to popping thing off multiple times
         double a;
         double b;
+        //creating a scanner to read our String s
         Scanner mathInput = new Scanner(s);
 
-
+        //loops through the string until it reaches the end
         while(mathInput.hasNext()){
+            //when it reads in a double in the string it will puch it on to the stack
             if(mathInput.hasNextDouble()){
                 push(mathInput.nextDouble());
             }
+
+            //if not a double it should be an operator
+            //Using cases to determine what operator and do the correct
+            //math accordingly
             else{
                 String operator = mathInput.next();
 
@@ -129,6 +150,8 @@ public class Calculator {
                 }
             }
         }
+        //by the end there should be one value in the stack which is the answer
+        //popping off the last number in the stack
         return pop();
     }
 
